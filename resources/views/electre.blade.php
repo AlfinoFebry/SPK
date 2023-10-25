@@ -6,12 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Transaksi</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Data Transaksi</li>
-                    </ol>
+                    <h1>SPK dengan Metode ELECTRE</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -28,9 +23,6 @@
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
@@ -70,9 +62,6 @@
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
@@ -121,9 +110,6 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
                 </div>
             </div>
             <div class="card-body">
@@ -171,9 +157,6 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
                 </div>
             </div>
             <div class="card-body">
@@ -212,8 +195,388 @@
         </div>
         <!-- /.card -->
 
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Concordance Index</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        @foreach ($concordanceIndex as $alternative => $criteriaValues)
+                            <tr>
+                                @foreach ($criteriaValues as $v => $value)
+                                    @if(is_array($value))
+                                    <tr>
+                                        <td>C {{$alternative}}, {{$v}}</td>
+                                        <td>
+                                            @foreach ($value as $item)
+                                                {{ $item }}
+                                            @endforeach
+                                        </td>
+                                        </tr>
+                                    @else
+                                        <td>{{ $value }}</td>
+                                    @endif
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Discordance Index</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        @foreach ($discordanceIndex as $alternative => $criteriaValues)
+                            <tr>
+                                @foreach ($criteriaValues as $v => $value)
+                                    @if(is_array($value))
+                                    <tr>
+                                        <td>C {{$alternative}}, {{$v}}</td>
+                                        <td>
+                                            @foreach ($value as $item)
+                                                {{ $item }}
+                                            @endforeach
+                                        </td>
+                                        </tr>
+                                    @else
+                                        <td>{{ $value }}</td>
+                                    @endif
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Concordance Matriks</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            @foreach (array_keys(reset($concordanceMatrix)) as $criteria)
+                                <th>K{{ $criteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($concordanceMatrix as $alternative => $criteriaValues)
+                            <tr>
+                                <th>A{{ $alternative }}</th> <!-- Add 'a' here -->
+                                @foreach ($criteriaValues as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Discordance Matriks</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            @foreach (array_keys(reset($discordanceMatrix)) as $criteria)
+                                <th>K{{ $criteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($discordanceMatrix as $alternative => $criteriaValues)
+                            <tr>
+                                <th>A{{ $alternative }}</th> <!-- Add 'a' here -->
+                                @foreach ($criteriaValues as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Threshold</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Concordance</th>
+                            <th>{{$concordanceThreshold}}</th>
+                        </tr>
+                        <tr>
+                            <th>Discordance</th>
+                            <th>{{ $discordanceThreshold}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Concordance Dominance</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            @foreach (array_keys(reset($concordanceDominance)) as $criteria)
+                                <th>K{{ $criteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($concordanceDominance as $alternative => $criteriaValues)
+                            <tr>
+                                <th>A{{ $alternative }}</th> <!-- Add 'a' here -->
+                                @foreach ($criteriaValues as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Discordance Dominance</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            @foreach (array_keys(reset($discordanceDominance)) as $criteria)
+                                <th>K{{ $criteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($discordanceDominance as $alternative => $criteriaValues)
+                            <tr>
+                                <th>A{{ $alternative }}</th> <!-- Add 'a' here -->
+                                @foreach ($criteriaValues as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Aggregate Dominance</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            @foreach (array_keys(reset($aggregateDominance)) as $criteria)
+                                <th>K{{ $criteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($aggregateDominance as $alternative => $criteriaValues)
+                            <tr>
+                                <th>A{{ $alternative }}</th> <!-- Add 'a' here -->
+                                @foreach ($criteriaValues as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
     </section>
     <!-- /.content -->
 </div>
 
 @endsection
+

@@ -29,7 +29,6 @@
         @yield('content')
         <!-- /.content-wrapper -->
 
-        @include('layout.footer')
 
     </div>
     <!-- ./wrapper -->
