@@ -24,11 +24,34 @@ class ElectreController extends Controller
         $normalized = $this->normalizedMatrix($array);
         $preferensi = $this->weightingNormalizedMatrix($normalized, $weight);
 
+        $m = 5;
+        $n = 5;
+        $index = $this->findConcordanceDiscordanceIndex($preferensi, $m, $n);
+
+        $concordancematrix = $this->findConcordanceMatrix($index['concordance'], $weight, $m);
+        $disordancematrix = $this->findDiscordanceMatrix($preferensi, $index['discordance'], $m, $n);
+
+        $concordanceThreshold = $this->findThresholdC($concordancematrix, $m);
+        $discordanceThreshold = $this->findThresholdD($disordancematrix, $m);
+
+        $concordanceDominance = $this->findConcordanceDominance($concordancematrix, $concordanceThreshold);
+        $discordanceDominance = $this->findDiscordanceDominance($disordancematrix, $discordanceThreshold);
+        $aggregateDominance = $this->findAggregateDominance($concordanceDominance, $discordanceDominance);  
+
         return view('electre', [
             'array'=> $array, 
             'normalized' => $normalized,
             'weight' => $weight,
             'preferensi' => $preferensi,
+            'concordanceIndex' => $index['concordance'],
+            'discordanceIndex' => $index['discordance'],
+            'concordanceMatrix' => $concordancematrix,
+            'discordanceMatrix' => $disordancematrix,
+            'concordanceThreshold' => $concordanceThreshold,
+            'discordanceThreshold' => $discordanceThreshold,
+            'concordanceDominance' => $concordanceDominance,
+            'discordanceDominance' => $discordanceDominance,
+            'aggregateDominance' => $aggregateDominance,
         ]);
     }
 
